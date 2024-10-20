@@ -1,0 +1,12 @@
+def detect_firmness(firmness_value):
+    if firmness_value > 80:
+        return "Fresh"
+    elif 50 <= firmness_value <= 80:
+        return "Ripe"
+    else:
+        return "Spoiled"
+
+# Example: Simulated firmness value input
+firmness_value = int(input("Enter firmness value (0-100): "))
+status = detect_firmness(firmness_value)
+print(f"Freshness Status: {status}")
