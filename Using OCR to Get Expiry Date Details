@@ -1,0 +1,12 @@
+Using OCR to Get Expiry Date Details : 
+
+Algorithm:
+Apply OCR (similar to task 1).
+Filter Expiry Date:
+Use regular expressions to search for date formats (e.g., MM/DD/YYYY or DD/MM/YYYY).
+Extract and validate the detected date.
+
+Procedure:
+Apply OCR on the label or packaging as done in Task 1.
+After extracting text, search for date formats in the text using regex.
+Identify and display the expiry date
