@@ -1,0 +1,29 @@
+import cv2
+
+# Load image
+img = cv2.imread('fruit_image.jpg')
+
+# Convert to HSV (hue, saturation, value) for better color segmentation
+hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+# Define color range for fresh produce (green as an example)
+lower_fresh = np.array([30, 40, 40])  # Lower bound of green color in HSV
+upper_fresh = np.array([90, 255, 255])  # Upper bound of green color in HSV
+
+# Create mask to detect fresh color
+mask = cv2.inRange(hsv_img, lower_fresh, upper_fresh)
+result = cv2.bitwise_and(img, img, mask=mask)
+
+# Calculate percentage of fresh area
+fresh_area = cv2.countNonZero(mask)
+total_area = img.shape[0] * img.shape[1]
+fresh_percentage = (fresh_area / total_area) * 100
+
+if fresh_percentage > 70:
+    print("Fresh Produce Detected")
+else:
+    print("Produce May Be Spoiled")
+
+cv2.imshow("Result", result)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
