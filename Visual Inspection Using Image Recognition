@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input, decode_predictions, MobileNetV2
+from tensorflow.keras.preprocessing import image
+
+# Load pre-trained MobileNetV2 model for image classification
+model = MobileNetV2(weights='imagenet')
+
+# Load image for freshness detection
+img = cv2.imread('fruit_image.jpg')
+
+# Preprocess the image for MobileNetV2
+img_resized = cv2.resize(img, (224, 224))
+x = image.img_to_array(img_resized)
+x = np.expand_dims(x, axis=0)
+x = preprocess_input(x)
+
+# Perform prediction
+predictions = model.predict(x)
+label = decode_predictions(predictions, top=1)[0][0][1]
+
+# Output the prediction (e.g., ripe banana, rotten apple)
+print(f"Detected: {label}")
