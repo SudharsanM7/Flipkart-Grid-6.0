@@ -1,0 +1,12 @@
+def detect_moisture(moisture_value):
+    if moisture_value > 70:
+        return "Fresh"
+    elif 40 <= moisture_value <= 70:
+        return "Drying Out"
+    else:
+        return "Dehydrated and Spoiled"
+
+# Example: Simulated moisture value input
+moisture_value = int(input("Enter moisture value (0-100): "))
+status = detect_moisture(moisture_value)
+print(f"Moisture Freshness Status: {status}")
