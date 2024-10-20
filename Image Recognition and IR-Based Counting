@@ -1,0 +1,16 @@
+Image Recognition and IR-Based Counting:
+
+Algorithm:
+Image Recognition:
+
+Use a pre-trained deep learning model like YOLO or MobileNet for object detection.
+Identify the desired object (e.g., counting specific items like fruits or vegetables).
+IR-Based Counting:
+
+Use IR sensors placed on the conveyor belt or in front of the object detection system.
+When the IR sensor detects an object passing through, increase the count.
+
+Procedure:
+Implement object detection using YOLO or another detection model.
+Set up an IR sensor to detect when an object passes through.
+Increment the count each time an object is detected by both the IR sensor and the object recognition model.
