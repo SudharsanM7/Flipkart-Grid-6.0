@@ -1,0 +1,12 @@
+def detect_ethylene(ethylene_level):
+    if ethylene_level < 20:
+        return "Fresh"
+    elif 20 <= ethylene_level <= 50:
+        return "Ripening"
+    else:
+        return "Overripe or Spoiled"
+
+# Example: Simulated ethylene gas level input
+ethylene_level = int(input("Enter ethylene gas level (ppm): "))
+status = detect_ethylene(ethylene_level)
+print(f"Ethylene Gas Freshness Status: {status}")
