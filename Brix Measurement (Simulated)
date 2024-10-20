@@ -1,0 +1,12 @@
+def detect_brix_level(brix_value):
+    if brix_value > 12:
+        return "Fresh and Sweet"
+    elif 8 <= brix_value <= 12:
+        return "Moderately Fresh"
+    else:
+        return "Not Fresh, Low Sugar Content"
+
+# Example: Simulated Brix value input
+brix_value = float(input("Enter Brix value (sugar content in %): "))
+status = detect_brix_level(brix_value)
+print(f"Brix Freshness Status: {status}")
