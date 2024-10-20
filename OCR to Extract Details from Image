@@ -1,0 +1,20 @@
+OCR to Extract Details from Image/Label :
+
+Algorithm:
+Image Preprocessing:
+
+Convert the image to grayscale to simplify further operations.
+Apply thresholding or adaptive thresholding for binarization (black and white image).
+Use noise reduction techniques like Gaussian blur or morphological transformations (e.g., opening or closing).
+Text Region Detection:
+
+Use contours or bounding boxes to find regions in the image where text is likely present.
+OCR Extraction:
+
+Use an OCR library like Tesseract to recognize text from the image.
+
+Procedure:
+Capture the image (or load from a file).
+Preprocess the image to make text more recognizable.
+Pass the preprocessed image to an OCR engine like Tesseract.
+Extract and display the detected text.
