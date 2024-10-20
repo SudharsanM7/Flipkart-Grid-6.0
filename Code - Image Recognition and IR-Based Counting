@@ -1,0 +1,73 @@
+code :
+import cv2
+
+# Load YOLO
+net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+layer_names = net.getLayerNames()
+output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+
+# Load COCO dataset class names (fruits or items you want to count)
+with open("coco.names", "r") as f:
+    classes = [line.strip() for line in f.readlines()]
+
+cap = cv2.VideoCapture(0)  # Video capture for real-time detection
+
+count = 0
+
+while True:
+    _, frame = cap.read()
+    height, width, channels = frame.shape
+
+    # Image recognition using YOLO
+    blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+    net.setInput(blob)
+    outs = net.forward(output_layers)
+
+    # Detection logic
+    for out in outs:
+        for detection in out:
+            scores = detection[5:]
+            class_id = np.argmax(scores)
+            confidence = scores[class_id]
+            if confidence > 0.5:
+                center_x = int(detection[0] * width)
+                center_y = int(detection[1] * height)
+                w = int(detection[2] * width)
+                h = int(detection[3] * height)
+                count += 1  # Increment count when object detected (combine with IR)
+
+    # Display the count
+    cv2.putText(frame, f"Count: {count}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+
+    cv2.imshow("Frame", frame)
+
+    key = cv2.waitKey(1)
+    if key == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
+IR-Based Counting (Using IR Sensor with GPIO):
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BCM)
+IR_SENSOR_PIN = 18  # Replace with actual pin number
+GPIO.setup(IR_SENSOR_PIN, GPIO.IN)
+
+count = 0
+
+def object_detected(channel):
+    global count
+    count += 1
+    print(f"Object detected! Total count: {count}")
+
+# Detect object crossing the sensor
+GPIO.add_event_detect(IR_SENSOR_PIN, GPIO.RISING, callback=object_detected)
+
+try:
+    while True:
+        pass
+except KeyboardInterrupt:
+    GPIO.cleanup()
+
